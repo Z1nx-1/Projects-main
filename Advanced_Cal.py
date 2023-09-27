@@ -2,46 +2,31 @@
 def cal1():
     while True:
         try:
-            num1 = float(input("Enter first number: "))
+            number1 = float(input("Enter first number: "))
         except ValueError:
             print("Invalid, Repeat: ")
-            continue
-        else:
-            break
-    print("(+, -, /, *)")
-    while True:
+        print("(+, -, /, *)")
         try:
-            op = input("Enter operator: ")
+            operator = input("Enter operator: ")
         except ValueError:
             print("Invalid, Repeat: ")
-            continue
-        else:
-            break
-    while True:
         try:
-            num2 = float(input("Enter second number: "))
+            number2 = float(input("Enter second number: "))
         except ValueError:
             print("Invalid, Repeat: ")
-            continue
         else:
             break
     global result1
-    if op == "+":
-        result1 = float(num1 + num2)
-        print(num1 + num2)
-    elif op == "-":
-        result1 = float(num1 - num2)
-        print(num1 - num2)
-    elif op == "/":
-        result1 = float(num1 / num2)
-        print(num1 / num2)
-    elif op == "*":
-        result1 = float(num1 * num2)
-        print(num1 * num2)
-
-    else:
-        quit()
-
+    if operator == "+":
+        result1 = float(number1 + number2)
+    elif operator == "-":
+        result1 = float(number1 - number2)
+    elif operator == "/":
+        result1 = float(number1 / number2)
+    elif operator == "*":
+        result1 = float(number1 * number2)
+    print(result1)
+        
 
 def cal2():
     cont = input("Would you like to continue? Y/N: ")
@@ -51,20 +36,21 @@ def cal2():
         print("Quiting: ")
         quit()
     result2 = result1
-    num3 = float(input("Enter first number: "))
+    number3 = float(input("Enter first number: "))
     print("(+, -, /, *)")
-    op = input("Enter operator: ")
-    if op == "+":
-        print(result2 + num3)
-    elif op == "-":
-        print(result2 - num3)
-    elif op == "/":
-        print(result2 / num3)
-    elif op == "*":
-        print(result2 * num3)
+    operator = input("Enter operator: ")
+    if operator == "+":
+        result2 = (result2 + number3)
+    elif operator == "-":
+        result2 = (result2 - number3)
+    elif operator == "/":
+        result2 = (result2 / number3)
+    elif operator == "*":
+        result2 = (result2 * number3)
     else:
         print("Invalid operator")
         quit()
+    print(result2)
 
 
 def end():
