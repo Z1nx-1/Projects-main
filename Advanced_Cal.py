@@ -1,19 +1,21 @@
-
 def cal1():
     while True:
         try:
             number1 = float(input("Enter first number: "))
         except ValueError:
             print("Invalid, Repeat: ")
+            continue
         print("(+, -, /, *)")
         try:
             operator = input("Enter operator: ")
         except ValueError:
             print("Invalid, Repeat: ")
+            continue
         try:
             number2 = float(input("Enter second number: "))
         except ValueError:
             print("Invalid, Repeat: ")
+            continue
         else:
             break
     global result1
