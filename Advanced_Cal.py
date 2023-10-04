@@ -18,41 +18,47 @@ def cal1():
             continue
         else:
             break
-    global result1
     if operator == "+":
-        result1 = float(number1 + number2)
+        result = float(number1 + number2)
     elif operator == "-":
-        result1 = float(number1 - number2)
+        result= float(number1 - number2)
     elif operator == "/":
-        result1 = float(number1 / number2)
+        result = float(number1 / number2)
     elif operator == "*":
-        result1 = float(number1 * number2)
-    print(result1)
-        
+        result = float(number1 * number2)
+    print(result)
+    return result
 
-def cal2():
+
+def cal2(original):
     cont = input("Would you like to continue? Y/N: ")
     if cont == 'Y':
         print("continuing: ")
     if cont == 'N':
         print("Quiting: ")
         quit()
-    result2 = result1
-    number3 = float(input("Enter first number: "))
-    print("(+, -, /, *)")
-    operator = input("Enter operator: ")
-    if operator == "+":
-        result2 = (result2 + number3)
-    elif operator == "-":
-        result2 = (result2 - number3)
-    elif operator == "/":
-        result2 = (result2 / number3)
-    elif operator == "*":
-        result2 = (result2 * number3)
-    else:
-        print("Invalid operator")
-        quit()
-    print(result2)
+    while True:
+        try:
+            number2 = original
+            number3 = float(input("Enter first number: "))
+        except ValueError:
+            print("Invalid, repeat: ")
+        try:
+            print("(+, -, /, *)")
+            operator = input("Enter operator: ")
+            if operator == "+":
+                result2 = float(number2 + number3)
+            elif operator == "-":
+                result2 = float(number2 - number3)
+            elif operator == "/":
+                result2 = float(number2 / number3)
+            elif operator == "*":
+                result2 = float(number2 * number3)
+            print(result2)
+        except:
+            print("Invalid operator")
+        else:
+            break
 
 
 def end():
@@ -61,10 +67,6 @@ def end():
         quit()
 
 
-cal1()
-cal2()
+result = cal1()
+cal2(result)
 end()
-
-print(result1)
-
-#ignore last commit message!
