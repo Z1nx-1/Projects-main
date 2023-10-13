@@ -1,4 +1,4 @@
-while True:
+while True:    
     def calculator():
         while True:
             while True:
@@ -30,34 +30,35 @@ while True:
                 return result
 
 
-    def calculator_loop(original):
-        while True:
-            cont = input("Add another number? Y/N: ")
-            if cont == 'Y':
-                print("continuing: ")
-            if cont == 'N':
-                quit()
-            print("(+, -, /, *)")
-            try:
-                operator = input("Enter operator: ")
-            except ValueError:
-                print("Invalid, Repeat: ")
-                continue
-            try:
-                number3 = float(input("Enter first number: "))
-            except ValueError:
-                print("Invalid, Repeat: ")
-                continue
-            if operator == "+":
-                result2 = float(original + number3)
-            elif operator == "-":
-                result2 = float(original - number3)
-            elif operator == "/":
-                result2 = float(original / number3)
-            elif operator == "*":
-                result2 = float(original * number3)
-            print(result2)
+    def calculator2(first_result):
+            while True:
+                cont = input("Add another number? Y/N: ")
+                if cont == 'Y':
+                    print("continuing: ")
+                if cont == 'N':
+                    quit()
+                print("(+, -, /, *)")
+                try:
+                    operator = input("Enter operator: ")
+                except ValueError:
+                    print("Invalid, Repeat: ")
+                    continue
+                try:
+                    number3 = float(input("Enter third number: "))
+                except ValueError:
+                    print("Invalid, Repeat: ")
+                    continue
+                if operator == "+":
+                    second_result = float(first_result + number3)
+                elif operator == "-":
+                    second_result = float(first_result - number3)
+                elif operator == "/":
+                    second_result = float(first_result / number3)
+                elif operator == "*":
+                    second_result = float(first_result * number3)
+                print(second_result)
+                return second_result
+        
 
-
-    original = calculator()
-    calculator_loop(original)
+    original_result = calculator()
+    second_result = calculator2(original_result)
