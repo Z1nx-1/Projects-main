@@ -7,12 +7,16 @@ class Person:
 
     def to_string(self):
         return f"{self.name}, {self.age}, {self.nationality}"
+
+
+
 file_path = ('PERSONS_LIST.txt')
+credentials_path = ('credentials.txt')
 
 
 def load_data():
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r') as file: 
             for line in file:
                 values = line.strip().split(', ')
                 if len(values) == 3:
@@ -31,25 +35,28 @@ def save_data():
 
 
 def login_credentials():
-    credentials = {}
+    username = None
+    password = None
+
     try:
-        with open('credentials.txt', 'r') as file:
+        with open(credentials_path, 'r') as file:
             for line in file:
                 username, password = line.strip().split(',')
-                credentials[username] = password
     except FileNotFoundError:
         print("File missing, please return to directory or replace to continue. ")
         quit()
-    return credentials, username, password
 
+    return username, password
+
+uesrname, password = login_credentials()
 
 def login():
-    credentials = login_credentials()
+    login_credentials()
     while True:
-        username = input("Enter your username: ")
-        password = input("Enter your password: ")
+        entered_username = input("Enter your username: ")
+        entered_password = input("Enter your password: ")
 
-        if username in credentials and credentials.get(username) == password:
+        if entered_username in uesrname and entered_password == password:
             print("Login Successful! ")
             break
         else:
@@ -72,9 +79,9 @@ def main_menu():
             if menu.upper() == 'C':
                 remove_person()
 
-
             if menu.upper() == 'D':
-                pass
+                username, password = login_credentials()
+                change_user_pass(username, password)
 
             if menu.upper() == 'E':
                 quit()
@@ -82,6 +89,10 @@ def main_menu():
             else:
                 print("Invalid input, please choose a valid option (A, B , C , D, E) ")
                 
+
+        except Exception as e:
+            print(f"{e} has caused an error!")
+
         except ValueError:
             print("There was an error with the main menu! Please try again:")
 
@@ -145,32 +156,23 @@ def add_person():
 def find_person():
     while True:
         try:
-            target = input("Enter the desired name to be searched: ")
+            target = input("Enter the desired person's full name to be searched: ")
             with open(file_path, 'r') as file:
                 for line in file:
                     if target in line:
                         details = line.strip().split(', ')
                         print(f"\n{target} was found in the file.\nDetails: Name: {details[0]}, Age: {details[1]}, Nationality: {details[2]}\n")
-                        cont = input("Would you like to search for another person? Y/N: ")
-                        if cont == 'Y':
-                            break
-                        elif cont == 'N':
-                            main_menu()                        
-                            return
-                        else:
-                            print("Invalid input, please enter only 'Y' or 'N': ")
                     else:
+                        print(f"\n{target} was not found In the file.")
                         while True:
-                            fail_cont = input(f"\n{target} was not found In the file. Would you like to search another person? Y/N: \n")
+                            fail_cont = input("\nWould you like to search another person? Y/N: ")
                             if fail_cont == 'Y':
-                                break
-
+                                find_person()
                             elif fail_cont == 'N':
                                 main_menu()
-                                return
+                                break
                             else:
-                                print("Invalid input, please enter only 'Y' or 'N': ")
-                            find_person()
+                                print("\nInvalid input, please enter only 'Y' or 'N': ")
         except Exception as e:
             print(f"Error removing person: {e}")
 
@@ -204,21 +206,41 @@ def remove_person():
         print(f"Error: {e} ")
 
 
-"""def change_credentials(credentials):
+def change_user_pass(username, password):
     while True:
         try:
-            what_to_change = input("What do you want to change?\nA) USERNAME\nB) PASSWORD\nC) Main menu")
-            if what_to_change == 'A':
-                new_username = input("Enter new username: ")
+            user_choice = input("What do you want to change?\nA) Username and Password\nB) Username\nC) Password\nTo go back at any time, type 'main menu'")
+            if user_choice.upper == 'A':
+                    new_username = input("Please enter new username: ")
+                    new_password = input("Please enter new password: ")
+                    cont = input(f"Is this correct?\nUsername: {new_username}\nPassword {new_password}\nY/N: ")
+                    if cont.upper == 'Y':
+                        with open(credentials_path, 'w') as file:
+                            file.writelines(f"{new_username},{new_password}")
+                            print("Credentials have been saved! ")
+                            break
+                    elif cont.upper == 'N':
+                        continue
                 
+            if user_choice.upper == 'B':
+                new_username = input("Enter your new username: ")
+                with open(credentials_path, 'w') as file:
+                    file.write(f"{new_username},{password}")
+                    print("New credentials have been saved.")
+                    break
 
-            if what_to_change == 'B':
+            if user_choice.upper == 'C':
+                new_password = input("Enter your new password: ")
+                with open(credentials_path, 'w') as file:
+                    file.write(f"{username},{new_password}")
+                    print("New credentials have been saved.")
+                    break
 
-            if what_to_change == 'C':
-        except ValueError:
-            pass"""
-            
-    
+        except Exception as e:
+            print(f"{e} has caused an error! ")
+        
+
+
 
 
 persons_list = []
